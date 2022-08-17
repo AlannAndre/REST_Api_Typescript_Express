@@ -1,0 +1,19 @@
+### Get all objects
+GET http://localhost:3000/api
+
+### Get one object
+GET http://localhost:3000/api/adasdasd
+
+### Create a new object
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "name":"David"
+}
+
+### Modify an object
+PUT http://localhost:3000/api/adasdasd
+
+### Delete an object
+DELETE http://localhost:3000/api/adasdasd
