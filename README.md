@@ -2,10 +2,10 @@
 Webbutveckling, Assignment 3 - Alann André
 SUVNET21 - Augusti 2022
 
-##Beskrivning av projektet
+## Beskrivning av projektet
 
 
-##Vilka krav som är uppfyllda
+## Vilka krav som är uppfyllda
 
 Krav för godkänt:
 [] 1. Projektet innehåller minst 4 st. endpoints (GET, POST, PUT & DELETE för en resurs)
@@ -23,5 +23,5 @@ Krav för väl godkänt:
 presentera datan, redigeringsformulär skall fyllas i med befintlig information.
 [] 5. Ytterligare en GET endpoint skall läggas till där det går att hämta ett specifikt objekt
 
-##Info om hur projektet byggs och körs.
+## Info om hur projektet byggs och körs.
 Projektet byggs med separerade client och server projekt som kommunicerar via en proxy.
