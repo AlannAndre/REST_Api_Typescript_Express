@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import * as BookService from "./books.service";
 import { BaseBook, Book } from "./book.interface";
+import { validateBody } from "./books.controller";
 
 export const booksRouter = express.Router();
 
@@ -32,7 +33,7 @@ booksRouter.get("/:id", async (req: Request, res: Response) => {
 
 // POST books
 
-booksRouter.post("/", async (req: Request, res: Response) => {
+booksRouter.post("/", validateBody, async (req: Request, res: Response) => {
   try {
     const book: BaseBook = req.body;
     const newBook = await BookService.create(book);
@@ -44,7 +45,7 @@ booksRouter.post("/", async (req: Request, res: Response) => {
 
 // PUT books/:id
 
-booksRouter.put("/:id", async (req: Request, res: Response) => {
+booksRouter.put("/:id", validateBody, async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
   try {
     const bookUpdate: Book = req.body;

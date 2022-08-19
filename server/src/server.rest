@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/menu/books
 
 ### Get one object
-GET http://localhost:3000/api/menu/books/10
+GET http://localhost:3000/api/menu/books/1
 
 ### Create a new object
 POST http://localhost:3000/api/menu/books
