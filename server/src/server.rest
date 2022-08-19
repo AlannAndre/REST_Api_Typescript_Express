@@ -9,11 +9,11 @@ POST http://localhost:3000/api/menu/books
 Content-Type: application/json
 
 {
-    "name": "test2",
     "Author": "test2",
-    "pages": 123,
-    "description": "test2",
-    "image": "./src/image/test"
+    "Title": "test2",
+    "Pages": 123,
+    "Description": "test2",
+    "Image": "./src/image/test"
 }
 
 ### Modify an object
@@ -21,11 +21,11 @@ PUT http://localhost:3000/api/menu/books/2
 Content-Type: application/json
 
 {
-    "name": "test3",
     "Author": "test3",
-    "pages": 123,
-    "description": "test3",
-    "image": "./src/image/test"
+    "Title": "test3",
+    "Pages": 123,
+    "Description": "test3",
+    "Image": "./src/image/test"
 }
 
 ### Delete an object
