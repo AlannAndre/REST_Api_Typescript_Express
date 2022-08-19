@@ -1,19 +1,32 @@
 ### Get all objects
-GET http://localhost:3000/api
+GET http://localhost:3000/api/menu/books
 
 ### Get one object
-GET http://localhost:3000/api/adasdasd
+GET http://localhost:3000/api/menu/books/10
 
 ### Create a new object
-POST http://localhost:3000/api
+POST http://localhost:3000/api/menu/books
 Content-Type: application/json
 
 {
-    "name":"David"
+    "name": "test2",
+    "Author": "test2",
+    "pages": 123,
+    "description": "test2",
+    "image": "./src/image/test"
 }
 
 ### Modify an object
-PUT http://localhost:3000/api/adasdasd
+PUT http://localhost:3000/api/menu/books/2
+Content-Type: application/json
+
+{
+    "name": "test3",
+    "Author": "test3",
+    "pages": 123,
+    "description": "test3",
+    "image": "./src/image/test"
+}
 
 ### Delete an object
-DELETE http://localhost:3000/api/adasdasd
+DELETE http://localhost:3000/api/menu/books/10
