@@ -31,7 +31,7 @@ let books: Books = {
   },
 };
 
-let dataFilePath: string = "./src/books/object.json";
+let dataFilePath: string = "./src/books/books.json";
 function updateDataFile(path: string) {
   fs.writeFile(path, JSON.stringify(books, null, 4), "utf-8", (err) => {
   if (err) {
