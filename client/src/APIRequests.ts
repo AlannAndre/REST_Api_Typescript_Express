@@ -3,7 +3,8 @@ import {
   getOneBook,
   deleteOneBook,
   addNewBook,
-  uppdateBook
+  uppdateBook,
+  getChuckFacts,
 } from "./controller";
 
 export function setupAllBooks(element: HTMLButtonElement) {
@@ -29,6 +30,11 @@ export function setupUpdateBook(element: HTMLButtonElement) {
 export function setupDeleteBook(element: HTMLButtonElement) {
   element.innerHTML = `Delete a book`;
   element.addEventListener("click", () => deleteOneBookById());
+}
+
+export function setupChuckFacts(element: HTMLButtonElement) {
+  element.innerHTML = `Get some Chuck facts`;
+  element.addEventListener("click", () => getSomeChuckFacts());
 }
 
 export function renderMain(){
@@ -309,4 +315,13 @@ async function renderDataForAllBooks() {
         .appendChild(document.createElement("img")).src = allBooks[i].Image;
     }
   }
+}
+
+async function getSomeChuckFacts() {
+  renderMain();
+  const chuckFacts = await getChuckFacts(); 
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
+  document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
+  <h1>${chuckFacts.value}<H1>
+`;
 }

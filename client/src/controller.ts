@@ -42,3 +42,13 @@ export async function uppdateBook(id: number, data = {}) {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
+
+
+const getUrl = "https://api.chucknorris.io/jokes/random";
+
+export async function getChuckFacts() {
+  const result = await fetch(getUrl);
+  const data = await result.json();
+  console.log(data);
+  return data;
+}
