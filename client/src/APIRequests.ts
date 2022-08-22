@@ -121,7 +121,7 @@ async function addANewBook() {
       Description: values[3][1],
       Image: values[4][1],
     };
-    addNewBook(newBook);
+    await addNewBook(newBook);
     RenderAllBooks();
   };
 }
@@ -190,7 +190,7 @@ async function uppdateABook() {
         Description: values[3][1],
         Image: values[4][1],
       };
-      uppdateBook(bookId, updatedBook);
+      await uppdateBook(bookId, updatedBook);
       RenderAllBooks();
     };
   };
