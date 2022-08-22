@@ -142,7 +142,7 @@ async function uppdateABook() {
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
   <form id="bookIdForm">
-    <label for="bookId">Enter Book id:</label><br>
+    <label for="bookId">Enter id of book to update:</label><br>
     <input type="number" id="bookId" name="bookId" required min="0"><br>
     <input type="reset" value="Reset">
     <input type="submit" value="Send Id">
@@ -168,19 +168,19 @@ async function uppdateABook() {
     </div>
     <div>
       <label for="Title">Title</label><br>
-      <input type="text" id="bookName" name="Title" value="${findBookToUpdate.Title}"required><br>
+      <input type="text" id="bookName" name="Title" value="${findBookToUpdate.Title}" required><br>
     </div>
     <div>
       <label for="Pages">Number of pages</label><br>
-      <input type="number" id="numberOfPages" name="Pages" value="${findBookToUpdate.Pages}"required min="0"><br>
+      <input type="number" id="numberOfPages" name="Pages" value="${findBookToUpdate.Pages}" required min="0"><br>
     </div>
     <div>
       <label for="Description">Description</label><br>
-      <textarea id="bookDescription" name="Description" value="${findBookToUpdate.Description}"required></textarea><br>
+      <textarea id="bookDescription" name="Description" required>${findBookToUpdate.Description}</textarea><br>
     </div>
     <div>
       <label for="Image">Book Cover</label><br>
-      <input type="text" id="bookCover" name="Image" value="${findBookToUpdate.Image}"required><br>
+      <input type="text" id="bookCover" name="Image" value="${findBookToUpdate.Image}" required><br>
     </div>
     <input type="reset" value="Reset">
     <input type="submit" value="Send Data">
@@ -212,7 +212,7 @@ async function deleteOneBookById() {
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
   <form id="bookIdForm">
-    <label for="bookId">Enter Book id:</label><br>
+    <label for="bookId">Enter id of book to delete:</label><br>
     <input type="number" id="bookId" name="bookId" required min="0"><br>
     <input type="reset" value="Reset">
     <input type="submit" value="Send Id">
