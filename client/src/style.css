@@ -33,7 +33,7 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2em;
   line-height: 1.1;
 }
 
@@ -47,12 +47,24 @@ h1 {
 }
 
 #navigation {
-  max-width: 1280px;
+  width: 140px;
   height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: green;
+  background-color: darkgray;
+}
+
+td {
+  background-color: white;
+  min-width: 50px;
+  max-width: 1000px;
+}
+
+th {
+  border: black;
+  background-color: black;
+  color: white;
 }
 
 #app {
@@ -61,7 +73,12 @@ h1 {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: blue;
+  background-color: lightgray;
+}
+
+img {
+  width: 100px;
+  height: auto;
 }
 
 .logo {

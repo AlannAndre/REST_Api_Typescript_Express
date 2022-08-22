@@ -1,5 +1,10 @@
-//import { allBooks, findBook } from "./main";
-import { getAllBooks, getOneBook } from "./controller";
+import {
+  getAllBooks,
+  getOneBook,
+  deleteOneBook,
+  addNewBook,
+  uppdateBook
+} from "./controller";
 
 export function setupAllBooks(element: HTMLButtonElement) {
   element.innerHTML = "Get all books";
@@ -8,25 +13,29 @@ export function setupAllBooks(element: HTMLButtonElement) {
 
 export function setupFindBook(element: HTMLButtonElement) {
   element.innerHTML = "Get one book"
-  element.addEventListener("click", () => inputBookId());
+  element.addEventListener("click", () => getOneBookById());
 }
 
 export function setupAddBooks(element: HTMLButtonElement) {
   element.innerHTML = `Add a new book`;
+  element.addEventListener("click", () => addANewBook());
 }
 
 export function setupUpdateBook(element: HTMLButtonElement) {
     element.innerHTML = `Update a book`;
+    element.addEventListener("click", () => uppdateABook());
 };
 
 export function setupDeleteBook(element: HTMLButtonElement) {
   element.innerHTML = `Delete a book`;
+  element.addEventListener("click", () => deleteOneBookById());
 }
 
 export function renderMain(){
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#getOneBook")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = "";
+  document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
   <div>
     <table class="table">
@@ -51,13 +60,9 @@ function RenderAllBooks(){
   renderDataForAllBooks();
 }
 
-async function inputBookId() {
+async function getOneBookById() {
   renderMain();
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
-  await getBookId();
-}
-
-async function getBookId(){
   document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
   <form id="bookIdForm">
     <label for="bookId">Enter Book id:</label><br>
@@ -67,7 +72,7 @@ async function getBookId(){
   </form>
 `;
   const bookIdForm = document.getElementById("bookIdForm") as HTMLFormElement;
-  var bookId=0;
+  let bookId;
   bookIdForm.onsubmit = async (e) => {
     // prevent the form from submitting
     e.preventDefault();
@@ -78,6 +83,153 @@ async function getBookId(){
     console.log(values[0][1]);
     bookId = Number(values[0][1]);
     RenderOneBook(bookId);
+  };
+}
+
+async function addANewBook() {
+  renderMain();
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
+  document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = `
+  <form id="bookCreateForm">
+    <div>
+      <label for="Author">Author</label><br>
+      <input type="text" id="bookAuthor" name="Author" required><br>
+    </div>
+    <div>
+      <label for="Title">Title</label><br>
+      <input type="text" id="bookName" name="Title" required><br>
+    </div>
+    <div>
+      <label for="Pages">Number of pages</label><br>
+      <input type="number" id="numberOfPages" name="Pages" required min="0"><br>
+    </div>
+    <div>
+      <label for="Description">Description</label><br>
+      <textarea id="bookDescription" name="Description" required></textarea><br>
+    </div>
+    <div>
+      <label for="Image">Book Cover</label><br>
+      <input type="text" id="bookCover" name="Image" required><br>
+    </div>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Send Data">
+  </form>
+`;
+  const bookCreateForm = document.getElementById(
+    "bookCreateForm"
+  ) as HTMLFormElement;
+  bookCreateForm.onsubmit = async (e) => {
+    // prevent the form from submitting
+    e.preventDefault();
+    let formData = new FormData(bookCreateForm);
+    let values = [...formData.entries()];
+/*     let jsontest = JSON.stringify(values);
+    console.log(jsontest); */
+    var newBook = {
+      Author: values[0][1],
+      Title: values[1][1],
+      Pages: values[2][1],
+      Description: values[3][1],
+      Image: values[4][1],
+    };
+    addNewBook(newBook);
+    RenderAllBooks();
+  };
+}
+
+async function uppdateABook() {
+  renderMain();
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
+  document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
+  <form id="bookIdForm">
+    <label for="bookId">Enter Book id:</label><br>
+    <input type="number" id="bookId" name="bookId" required min="0"><br>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Send Id">
+  </form>
+`;
+  const bookIdForm = document.getElementById("bookIdForm") as HTMLFormElement;
+  //let bookId;
+  bookIdForm.onsubmit = async (e) => {
+    // prevent the form from submitting
+    e.preventDefault();
+
+    // show the form values
+    const formData = new FormData(bookIdForm);
+    let values = [...formData.entries()];
+    console.log(values[0][1]);
+    let bookId = Number(values[0][1]);
+    var findBookToUpdate = await getOneBook(bookId);
+    document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = `
+  <form id="bookUpdateForm">
+    <div>
+      <label for="Author">Author</label><br>
+      <input type="text" id="bookAuthor" name="Author" value="${findBookToUpdate.Author}" required><br>
+    </div>
+    <div>
+      <label for="Title">Title</label><br>
+      <input type="text" id="bookName" name="Title" value="${findBookToUpdate.Title}"required><br>
+    </div>
+    <div>
+      <label for="Pages">Number of pages</label><br>
+      <input type="number" id="numberOfPages" name="Pages" value="${findBookToUpdate.Pages}"required min="0"><br>
+    </div>
+    <div>
+      <label for="Description">Description</label><br>
+      <textarea id="bookDescription" name="Description" value="${findBookToUpdate.Description}"required></textarea><br>
+    </div>
+    <div>
+      <label for="Image">Book Cover</label><br>
+      <input type="text" id="bookCover" name="Image" value="${findBookToUpdate.Image}"required><br>
+    </div>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Send Data">
+  </form>
+`;
+    const bookUpdateForm = document.getElementById(
+      "bookUpdateForm"
+    ) as HTMLFormElement;
+    bookUpdateForm.onsubmit = async (e) => {
+      // prevent the form from submitting
+      e.preventDefault();
+      let formData = new FormData(bookUpdateForm);
+      let values = [...formData.entries()];
+      var updatedBook = {
+        Author: values[0][1],
+        Title: values[1][1],
+        Pages: values[2][1],
+        Description: values[3][1],
+        Image: values[4][1],
+      };
+      uppdateBook(bookId, updatedBook);
+      RenderAllBooks();
+    };
+  };
+}
+
+async function deleteOneBookById() {
+  renderMain();
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
+  document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
+  <form id="bookIdForm">
+    <label for="bookId">Enter Book id:</label><br>
+    <input type="number" id="bookId" name="bookId" required min="0"><br>
+    <input type="reset" value="Reset">
+    <input type="submit" value="Send Id">
+  </form>
+`;
+  const bookIdForm = document.getElementById("bookIdForm") as HTMLFormElement;
+  let bookId;
+  bookIdForm.onsubmit = async (e) => {
+    // prevent the form from submitting
+    e.preventDefault();
+
+    // show the form values
+    const formData = new FormData(bookIdForm);
+    let values = [...formData.entries()];
+    bookId = Number(values[0][1]);
+    deleteOneBook(bookId);
+    RenderAllBooks();
   };
 }
 
@@ -114,7 +266,8 @@ async function renderDataForOneBook(bookId: number) {
       findBook.Description;
     document
       .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td")).innerHTML = findBook.Image;
+      .appendChild(document.createElement("td"))
+      .appendChild(document.createElement("img")).src = findBook.Image;
   }
 }
 
@@ -152,8 +305,8 @@ async function renderDataForAllBooks() {
         allBooks[i].Description;
       document
         .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td")).innerHTML =
-        allBooks[i].Image;
+        .appendChild(document.createElement("td"))
+        .appendChild(document.createElement("img")).src = allBooks[i].Image;
     }
   }
 }
