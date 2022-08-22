@@ -34,7 +34,7 @@ Krav för väl godkänt:
 [X] 4. Ett klient-gränssnitt skall byggas för att anropa API:ets alla olika endpoints och 
 presentera datan, redigeringsformulär skall fyllas i med befintlig information.
 
-[] 5. Ytterligare en GET endpoint skall läggas till där det går att hämta ett specifikt objekt
+[X] 5. Ytterligare en GET endpoint skall läggas till där det går att hämta ett specifikt objekt
 
 ## Info om hur projektet byggs och körs.
 Projektet byggs med separerade client och server projekt som kommunicerar via en proxy.
