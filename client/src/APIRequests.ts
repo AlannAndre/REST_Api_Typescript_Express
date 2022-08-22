@@ -91,6 +91,9 @@ async function renderDataForOneBook(bookId: number) {
   if (document.getElementById("tbody-renderBooks") != null) {
     document
       .getElementById("tbody-renderBooks")!
+      .appendChild(document.createElement("br"));
+    document
+      .getElementById("tbody-renderBooks")!
       .appendChild(document.createElement("tr"))
       .setAttribute("id", "tr-renderBooks");
     document
@@ -119,6 +122,9 @@ async function renderDataForAllBooks() {
   var allBooks = await getAllBooks();
   for (let i = 0; i < allBooks.length; i++) {
     if (document.getElementById("tbody-renderBooks") != null) {
+      document
+        .getElementById("tbody-renderBooks")!
+        .appendChild(document.createElement("br"));
       document
         .getElementById("tbody-renderBooks")!
         .appendChild(document.createElement("tr"))
