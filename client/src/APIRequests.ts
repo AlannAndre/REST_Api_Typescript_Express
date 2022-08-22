@@ -41,24 +41,7 @@ export function renderMain(){
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#getOneBook")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = "";
-  document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = "";
-  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
-  <div>
-    <table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Pages</th>
-            <th>Description</th>
-            <th>Book cover</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-renderBooks"></tbody>
-  </table>
-  </div>
-`;
+  document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = ""; 
 }
 
 function RenderAllBooks(){
@@ -245,6 +228,23 @@ function RenderOneBook(bookId: number) {
 }
 
 async function renderDataForOneBook(bookId: number) {
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
+  <div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Pages</th>
+            <th>Description</th>
+            <th>Book cover</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-renderBooks"></tbody>
+  </table>
+  </div>
+`;
   var findBook = await getOneBook(bookId);
   if (document.getElementById("tbody-renderBooks") != null) {
     document
@@ -278,6 +278,23 @@ async function renderDataForOneBook(bookId: number) {
 }
 
 async function renderDataForAllBooks() {
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
+  <div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Pages</th>
+            <th>Description</th>
+            <th>Book cover</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-renderBooks"></tbody>
+  </table>
+  </div>
+`;
   var allBooks = await getAllBooks();
   for (let i = 0; i < allBooks.length; i++) {
     if (document.getElementById("tbody-renderBooks") != null) {
