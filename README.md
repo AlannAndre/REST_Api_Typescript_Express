@@ -3,7 +3,9 @@ Webbutveckling, Assignment 3 - Alann André
 SUVNET21 - Augusti 2022
 
 ## Beskrivning av projektet
-
+I följande projekt har jag byggt en API med 4 st. endpoints som använts för att hämta böcker, uppdatera en existerande bok, skapa nya böcker eller ta bort böcker. Dessa böcker beskrivs med författare, titel, antal sidor, en sammanfattning samt en bild. Alla böcker har en unik id.
+Projektet har utvecklats med Typescript och Express.
+Alla API endpoints kan köras/testas via en .rest (server.rest) fil direkt i VsCode eller via en client app byggt med Vite.
 
 ## Vilka krav som är uppfyllda
 
@@ -38,3 +40,6 @@ presentera datan, redigeringsformulär skall fyllas i med befintlig information.
 
 ## Info om hur projektet byggs och körs.
 Projektet byggs med separerade client och server projekt som kommunicerar via en proxy.
+I server projektet...
+
+I client projektet...
