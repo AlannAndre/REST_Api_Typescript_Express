@@ -1,8 +1,39 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import { setupCounter } from './counter'
+import {
+  setupAllBooks,
+  setupFindBook,
+  setupAddBooks,
+  setupUpdateBook,
+  setupDeleteBook,
+  renderMain
+} from "./APIRequests";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+renderMain();
+document.querySelector<HTMLDivElement>("#navigation")!.innerHTML = `
+  <div>
+    <h1>API Requests</h1>
+    <div class="card">
+      <button id="Request1" type="button"></button>
+    </div>
+    <div class="card">
+      <button id="Request2" type="button"></button>
+    </div>
+    <div class="card">
+      <button id="Request3" type="button"></button>
+    </div>
+        <div class="card">
+      <button id="Request4" type="button"></button>
+    </div>
+        <div class="card">
+      <button id="Request5" type="button"></button>
+    </div>
+  </div>
+`;
+
+
+
+
+/* document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -18,14 +49,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       Click on the Vite and TypeScript logos to learn more
     </p>
   </div>
-`
+`; */
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
-
-async function fetchData() {
-  const result = await fetch("/api");
-  const data = await result.json();
-  console.log(data);
-}
-
-fetchData();
+//ApiCalls
+setupAllBooks(document.querySelector<HTMLButtonElement>("#Request1")!);
+setupFindBook(document.querySelector<HTMLButtonElement>("#Request2")!);
+setupAddBooks(document.querySelector<HTMLButtonElement>("#Request3")!);
+setupUpdateBook(document.querySelector<HTMLButtonElement>("#Request4")!);
+setupDeleteBook(document.querySelector<HTMLButtonElement>("#Request5")!);
