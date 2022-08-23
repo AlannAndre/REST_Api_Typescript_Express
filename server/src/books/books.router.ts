@@ -25,7 +25,7 @@ booksRouter.get("/:id", async (req: Request, res: Response) => {
     if (book) {
       return res.status(200).json(book);
     }
-    res.status(404).send("book not found");
+    res.status(404).json("book not found");
   } catch (e) {
     res.status(500).json({ error: { message: e } });
   }
@@ -54,8 +54,9 @@ booksRouter.put("/:id", validateBody, async (req: Request, res: Response) => {
       const updatedBook = await BookService.update(id, bookUpdate);
       return res.status(200).json(updatedBook);
     }
-    const newBook = await BookService.create(bookUpdate);
-    res.status(201).json(newBook);
+    return res.status(404).json("book not found");
+    //const newBook = await BookService.create(bookUpdate);  Add these two lines instead of L57 give the possibility to create a new book if id not found
+    //res.status(201).json(newBook);
   } catch (e) {
     res.status(500).json({ error: { message: e } });
   }
@@ -66,8 +67,12 @@ booksRouter.put("/:id", validateBody, async (req: Request, res: Response) => {
 booksRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
     const id: number = parseInt(req.params.id, 10);
-    await BookService.remove(id);
-    res.status(204).json(null);
+    const book: Book = await BookService.find(id);
+    if (book) {
+      await BookService.remove(id);
+      return res.status(204).json(null);
+    }
+    return res.status(404).json("book not found");
   } catch (e) {
     res.status(500).json({ error: { message: e } });
   }
