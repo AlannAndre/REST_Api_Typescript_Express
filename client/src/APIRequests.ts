@@ -7,6 +7,8 @@ import {
   getChuckFacts,
 } from "./controller";
 
+//Button, text and event
+
 export function setupAllBooks(element: HTMLButtonElement) {
   element.innerHTML = "Get all books";
   element.addEventListener("click", () => RenderAllBooks());
@@ -37,6 +39,8 @@ export function setupChuckFacts(element: HTMLButtonElement) {
   element.addEventListener("click", () => getSomeChuckFacts());
 }
 
+//Render functions
+
 export function renderMain(){
   document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = "";
   document.querySelector<HTMLDivElement>("#getOneBook")!.innerHTML = "";
@@ -48,6 +52,132 @@ function RenderAllBooks(){
   renderMain();
   renderDataForAllBooks();
 }
+
+function RenderOneBook(bookId: number) {
+  renderMain();
+  renderDataForOneBook(bookId);
+}
+
+async function renderDataForOneBook(bookId: number) {
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
+  <div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Pages</th>
+            <th>Description</th>
+            <th>Book cover</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-renderBooks"></tbody>
+  </table>
+  </div>
+`;
+  var findBook = await getOneBook(bookId);
+  if (findBook.id!=undefined){
+    if (document.getElementById("tbody-renderBooks") != null) {
+      document
+        .getElementById("tbody-renderBooks")!
+        .appendChild(document.createElement("br"));
+      document
+        .getElementById("tbody-renderBooks")!
+        .appendChild(document.createElement("tr"))
+        .setAttribute("id", "tr-renderBooks");
+      document
+        .getElementById("tr-renderBooks")!
+        .appendChild(document.createElement("td")).innerHTML = findBook.id;
+      document
+        .getElementById("tr-renderBooks")!
+        .appendChild(document.createElement("td")).innerHTML = findBook.Author;
+      document
+        .getElementById("tr-renderBooks")!
+        .appendChild(document.createElement("td")).innerHTML = findBook.Title;
+      document
+        .getElementById("tr-renderBooks")!
+        .appendChild(document.createElement("td")).innerHTML = findBook.Pages;
+      document
+        .getElementById("tr-renderBooks")!
+        .appendChild(document.createElement("td")).innerHTML =
+        findBook.Description;
+      document
+        .getElementById("tr-renderBooks")!
+        .appendChild(document.createElement("td"))
+        .appendChild(document.createElement("img")).src = findBook.Image;
+    }
+  }
+  else { 
+    renderBookNotFound();
+  }
+}
+
+async function renderDataForAllBooks() {
+  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
+  <div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Pages</th>
+            <th>Description</th>
+            <th>Book cover</th>
+        </tr>
+    </thead>
+    <tbody id="tbody-renderBooks"></tbody>
+  </table>
+  </div>
+`;
+  var allBooks = await getAllBooks();
+  for (let i = 0; i < allBooks.length; i++) {
+    if (document.getElementById("tbody-renderBooks") != null) {
+      document
+        .getElementById("tbody-renderBooks")!
+        .appendChild(document.createElement("br"));
+      document
+        .getElementById("tbody-renderBooks")!
+        .appendChild(document.createElement("tr"))
+        .setAttribute("id", "tr-renderBooks" + i);
+      document
+        .getElementById("tr-renderBooks" + i)!
+        .appendChild(document.createElement("td"))
+        .setAttribute("id", "id" + i);
+      document.getElementById("id" + i)!.innerHTML = allBooks[i].id;
+      document
+        .getElementById("tr-renderBooks" + i)!
+        .appendChild(document.createElement("td")).innerHTML =
+        allBooks[i].Author;
+      document
+        .getElementById("tr-renderBooks" + i)!
+        .appendChild(document.createElement("td")).innerHTML =
+        allBooks[i].Title;
+      document
+        .getElementById("tr-renderBooks" + i)!
+        .appendChild(document.createElement("td")).innerHTML =
+        allBooks[i].Pages;
+      document
+        .getElementById("tr-renderBooks" + i)!
+        .appendChild(document.createElement("td")).innerHTML =
+        allBooks[i].Description;
+      document
+        .getElementById("tr-renderBooks" + i)!
+        .appendChild(document.createElement("td"))
+        .appendChild(document.createElement("img")).src = allBooks[i].Image;
+    }
+  }
+}
+
+function renderBookNotFound() {
+  renderMain();
+  document.querySelector<HTMLDivElement>("#inputBookId")!.innerHTML = `
+  <h2>Book id not found<h2>
+  `;
+}
+
+//API request functions functions
 
 async function getOneBookById() {
   renderMain();
@@ -149,51 +279,56 @@ async function uppdateABook() {
     console.log(values[0][1]);
     let bookId = Number(values[0][1]);
     var findBookToUpdate = await getOneBook(bookId);
-    document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = `
-  <form id="bookUpdateForm">
-    <div>
-      <label for="Author">Author</label><br>
-      <input type="text" id="bookAuthor" name="Author" value="${findBookToUpdate.Author}" required><br>
-    </div>
-    <div>
-      <label for="Title">Title</label><br>
-      <input type="text" id="bookName" name="Title" value="${findBookToUpdate.Title}" required><br>
-    </div>
-    <div>
-      <label for="Pages">Number of pages</label><br>
-      <input type="number" id="numberOfPages" name="Pages" value="${findBookToUpdate.Pages}" required min="0"><br>
-    </div>
-    <div>
-      <label for="Description">Description</label><br>
-      <textarea id="bookDescription" name="Description" required>${findBookToUpdate.Description}</textarea><br>
-    </div>
-    <div>
-      <label for="Image">Book Cover</label><br>
-      <input type="text" id="bookCover" name="Image" value="${findBookToUpdate.Image}" required><br>
-    </div>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Send Data">
-  </form>
-`;
-    const bookUpdateForm = document.getElementById(
-      "bookUpdateForm"
-    ) as HTMLFormElement;
-    bookUpdateForm.onsubmit = async (e) => {
-      // prevent the form from submitting
-      e.preventDefault();
-      let formData = new FormData(bookUpdateForm);
-      let values = [...formData.entries()];
-      var updatedBook = {
-        Author: values[0][1],
-        Title: values[1][1],
-        Pages: values[2][1],
-        Description: values[3][1],
-        Image: values[4][1],
+    if (findBookToUpdate.id != undefined) {
+      document.querySelector<HTMLDivElement>("#inputBookData")!.innerHTML = `
+          <form id="bookUpdateForm">
+          <div>
+            <label for="Author">Author</label><br>
+            <input type="text" id="bookAuthor" name="Author" value="${findBookToUpdate.Author}" required><br>
+          </div>
+          <div>
+            <label for="Title">Title</label><br>
+            <input type="text" id="bookName" name="Title" value="${findBookToUpdate.Title}" required><br>
+          </div>
+          <div>
+            <label for="Pages">Number of pages</label><br>
+            <input type="number" id="numberOfPages" name="Pages" value="${findBookToUpdate.Pages}" required min="0"><br>
+          </div>
+          <div>
+            <label for="Description">Description</label><br>
+            <textarea id="bookDescription" name="Description" required>${findBookToUpdate.Description}</textarea><br>
+          </div>
+          <div>
+            <label for="Image">Book Cover</label><br>
+            <input type="text" id="bookCover" name="Image" value="${findBookToUpdate.Image}" required><br>
+          </div>
+          <input type="reset" value="Reset">
+          <input type="submit" value="Send Data">
+        </form>
+          `;
+      const bookUpdateForm = document.getElementById(
+        "bookUpdateForm"
+      ) as HTMLFormElement;
+      bookUpdateForm.onsubmit = async (e) => {
+        // prevent the form from submitting
+        e.preventDefault();
+        let formData = new FormData(bookUpdateForm);
+        let values = [...formData.entries()];
+        var updatedBook = {
+          Author: values[0][1],
+          Title: values[1][1],
+          Pages: values[2][1],
+          Description: values[3][1],
+          Image: values[4][1],
+        };
+        await uppdateBook(bookId, updatedBook);
+        RenderAllBooks();
       };
-      await uppdateBook(bookId, updatedBook);
-      RenderAllBooks();
-    };
-  };
+    } 
+    else {
+      renderBookNotFound();
+    }
+  } ;
 }
 
 async function deleteOneBookById() {
@@ -217,122 +352,18 @@ async function deleteOneBookById() {
     const formData = new FormData(bookIdForm);
     let values = [...formData.entries()];
     bookId = Number(values[0][1]);
-    deleteOneBook(bookId);
-    RenderAllBooks();
+    var findBookToUpdate = await getOneBook(bookId);
+    if (findBookToUpdate.id != undefined) {
+      deleteOneBook(bookId);
+      RenderAllBooks();
+    }
+    else {
+      renderBookNotFound();
+    }
   };
 }
 
-function RenderOneBook(bookId: number) {
-  renderMain();
-  renderDataForOneBook(bookId);
-}
-
-async function renderDataForOneBook(bookId: number) {
-  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
-  <div>
-    <table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Pages</th>
-            <th>Description</th>
-            <th>Book cover</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-renderBooks"></tbody>
-  </table>
-  </div>
-`;
-  var findBook = await getOneBook(bookId);
-  if (document.getElementById("tbody-renderBooks") != null) {
-    document
-      .getElementById("tbody-renderBooks")!
-      .appendChild(document.createElement("br"));
-    document
-      .getElementById("tbody-renderBooks")!
-      .appendChild(document.createElement("tr"))
-      .setAttribute("id", "tr-renderBooks");
-    document
-      .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td")).innerHTML = findBook.id;
-    document
-      .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td")).innerHTML = findBook.Author;
-    document
-      .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td")).innerHTML = findBook.Title;
-    document
-      .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td")).innerHTML = findBook.Pages;
-    document
-      .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td")).innerHTML =
-      findBook.Description;
-    document
-      .getElementById("tr-renderBooks")!
-      .appendChild(document.createElement("td"))
-      .appendChild(document.createElement("img")).src = findBook.Image;
-  }
-}
-
-async function renderDataForAllBooks() {
-  document.querySelector<HTMLDivElement>("#getAllBooks")!.innerHTML = `
-  <div>
-    <table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Pages</th>
-            <th>Description</th>
-            <th>Book cover</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-renderBooks"></tbody>
-  </table>
-  </div>
-`;
-  var allBooks = await getAllBooks();
-  for (let i = 0; i < allBooks.length; i++) {
-    if (document.getElementById("tbody-renderBooks") != null) {
-      document
-        .getElementById("tbody-renderBooks")!
-        .appendChild(document.createElement("br"));
-      document
-        .getElementById("tbody-renderBooks")!
-        .appendChild(document.createElement("tr"))
-        .setAttribute("id", "tr-renderBooks"+i);
-      document
-        .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td")).setAttribute("id", "id"+i);
-      document.getElementById("id"+i)!.innerHTML = 
-          allBooks[i].id;
-      document
-        .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td")).innerHTML =
-        allBooks[i].Author;
-      document
-        .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td")).innerHTML =
-        allBooks[i].Title;
-      document
-        .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td")).innerHTML =
-        allBooks[i].Pages;
-      document
-        .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td")).innerHTML =
-        allBooks[i].Description;
-      document
-        .getElementById("tr-renderBooks"+i)!
-        .appendChild(document.createElement("td"))
-        .appendChild(document.createElement("img")).src = allBooks[i].Image;
-    }
-  }
-}
+// Extra get function
 
 async function getSomeChuckFacts() {
   renderMain();
