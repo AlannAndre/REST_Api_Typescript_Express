@@ -22,5 +22,13 @@
         "Pages": 394,
         "Description": "The story chronicles journalist Georges Duroy's corrupt rise to power from a poor former cavalry NCO in France's African colonies, to one of the most successful men in Paris, most of which he achieves by manipulating a series of powerful, intelligent, and wealthy women.",
         "Image": "/public/Maupassant2.jpg"
+    },
+    "4": {
+        "id": 4,
+        "Author": "Frank Partnoy",
+        "Title": "Tändstickskungen",
+        "Pages": 336,
+        "Description": "Varje finanskris har sin egen skurk - och den störste av dem alla är en svensk. När Financial Times rankade alla tiders största svindlare hamnade kalmarsonen Ivar Kreuger på tredje plats. År 1930 tillverkade hans fabriker tre fjärdedelar av alla tändstickor i världen, han umgicks med presidenter och filmstjärnor, han hade överlistat Wall Street kraschen -29, han verkade oövervinnerlig. Men när bubblan trots allt sprack två år senare utlöstes Kreugerkraschen, en global kris utan dess like. Miljoner människor världen över förlorade sina besparingar och arbeten. Följ den excentriske och karismatiske finansmannen Ivar Kreuger, från födelsen 1880 till det mytomspunna självmordet, ett skott i hjärtat, i Paris 52 år senare.",
+        "Image": "/public/Kreuger1.jpg"
     }
 }
