@@ -1,22 +1,18 @@
 export async function getAllBooks() {
   const result = await fetch("/api");
   const data = await result.json();
-  console.log(data);
   return data
 }
 
 export async function getOneBook(id:number) {
   const result = await fetch("/api"+"/"+id);
   const data = await result.json();
-  console.log(data);
   return data;
 }
 
 export async function deleteOneBook(id: number) {
   const result = await fetch("/api" + "/" + id, { method: 'DELETE' });
-  const data = await result.json();
-  console.log(data);
-  return data;
+  return result;
 }
 
 export async function addNewBook(data = {}) {
@@ -49,6 +45,5 @@ const getUrl = "https://api.chucknorris.io/jokes/random";
 export async function getChuckFacts() {
   const result = await fetch(getUrl);
   const data = await result.json();
-  console.log(data);
   return data;
 }

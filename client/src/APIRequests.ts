@@ -199,7 +199,6 @@ async function getOneBookById() {
     // show the form values
     const formData = new FormData(bookIdForm);
     let values = [...formData.entries()];
-    console.log(values[0][1]);
     bookId = Number(values[0][1]);
     RenderOneBook(bookId);
   };
@@ -242,8 +241,6 @@ async function addANewBook() {
     e.preventDefault();
     let formData = new FormData(bookCreateForm);
     let values = [...formData.entries()];
-/*     let jsontest = JSON.stringify(values);
-    console.log(jsontest); */
     var newBook = {
       Author: values[0][1],
       Title: values[1][1],
@@ -276,7 +273,6 @@ async function uppdateABook() {
     // show the form values
     const formData = new FormData(bookIdForm);
     let values = [...formData.entries()];
-    console.log(values[0][1]);
     let bookId = Number(values[0][1]);
     var findBookToUpdate = await getOneBook(bookId);
     if (findBookToUpdate.id != undefined) {
