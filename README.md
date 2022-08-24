@@ -40,6 +40,21 @@ presentera datan, redigeringsformulär skall fyllas i med befintlig information.
 
 ## Info om hur projektet byggs och körs.
 Projektet byggs med separerade client och server projekt som kommunicerar via en proxy.
+
+1 - starta server projektet i server mappen:
+
+run: npm run dev
+
+2 - Filen books.json skapas med all data som kommer sen att hämta, updatera, skapa eller tas bort. books.json updateras när PUT, POST eller DELETE används.
+
+3 - i server mappen hittar man filen server.rest i mappen src. Med den filen kan man testa alla end points som api:et har (GET, POST, PUT och DELETE)
+
+4 - Om man vill kan man också ha tillgång till data via ett klient-gränssnitt. För det startar man client projektet i client mappen från en ny terminal. Viktigt att hålla igång server projektet eftersom client projektet kommer att hämta data från server sida via en proxy.
+
+run: npm run dev
+
+5 - I klient-gränssnittet kan man köra alla CRUD commands. Om data ändras från klient sidan ändras det på server sida
+
 I server projektet...
 
 I client projektet...
