@@ -1,11 +1,11 @@
 ### Get all objects
-GET http://localhost:3000/api/menu/books
+GET http://localhost:3000/api/books
 
 ### Get one object
-GET http://localhost:3000/api/menu/books/2
+GET http://localhost:3000/api/books/2
 
 ### Create a new object
-POST http://localhost:3000/api/menu/books
+POST http://localhost:3000/api/books
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### Modify an object
-PUT http://localhost:3000/api/menu/books/3
+PUT http://localhost:3000/api/books/3
 Content-Type: application/json
 
 {
@@ -29,4 +29,4 @@ Content-Type: application/json
 }
 
 ### Delete an object
-DELETE http://localhost:3000/api/menu/books/20
+DELETE http://localhost:3000/api/books/20

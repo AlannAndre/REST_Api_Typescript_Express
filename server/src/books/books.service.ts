@@ -1,7 +1,6 @@
 import { BaseBook, Book } from "./book.interface";
 import { Books } from "./books.interface";
 import * as fs from "fs";
-import { nextTick } from "process";
 
 let books: Books = {
   1: {

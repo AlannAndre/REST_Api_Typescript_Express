@@ -16,27 +16,25 @@ export async function deleteOneBook(id: number) {
 }
 
 export async function addNewBook(data = {}) {
-  // Default options are marked with *
   const response = await fetch("/api", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    body: JSON.stringify(data),
   });
-  return response.json(); // parses JSON response into native JavaScript objects
+  return response.json(); 
 }
 
 export async function uppdateBook(id: number, data = {}) {
-  // Default options are marked with *
   const response = await fetch("/api" + "/" + id, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data), // body data type must match "Content-Type" header
+    body: JSON.stringify(data),
   });
-  return response.json(); // parses JSON response into native JavaScript objects
+  return response.json();
 }
 
 

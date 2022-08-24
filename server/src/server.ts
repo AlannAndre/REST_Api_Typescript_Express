@@ -7,7 +7,7 @@ import {logger} from "./api.controller"
 const app = express();
 app.use(logger);
 app.use(express.json());
-app.use("/api/menu/books", booksRouter);
+app.use("/api/books", booksRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);

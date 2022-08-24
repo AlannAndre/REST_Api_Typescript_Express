@@ -55,7 +55,7 @@ booksRouter.put("/:id", validateBody, async (req: Request, res: Response) => {
       return res.status(200).json(updatedBook);
     }
     return res.status(404).json("book not found");
-    //const newBook = await BookService.create(bookUpdate);  Add these two lines instead of L57 give the possibility to create a new book if id not found
+    //const newBook = await BookService.create(bookUpdate);  Adding these two lines instead of L57 gives the possibility to create a new book if id not found
     //res.status(201).json(newBook);
   } catch (e) {
     res.status(500).json({ error: { message: e } });
