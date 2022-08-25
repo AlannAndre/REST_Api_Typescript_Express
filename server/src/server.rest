@@ -29,4 +29,4 @@ Content-Type: application/json
 }
 
 ### Delete an object
-DELETE http://localhost:3000/api/books/20
+DELETE http://localhost:3000/api/books/2
