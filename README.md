@@ -54,7 +54,3 @@ run: npm run dev
 run: npm run dev
 
 5 - I klient-gränssnittet kan man köra alla CRUD commands. Om data ändras från klient sidan ändras det på server sida också.
-
-I server projektet...
-
-I client projektet...
