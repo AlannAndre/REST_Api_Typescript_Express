@@ -1,22 +1,22 @@
 export async function getAllBooks() {
-  const result = await fetch("/api");
+  const result = await fetch("/api/books");
   const data = await result.json();
   return data
 }
 
 export async function getOneBook(id:number) {
-  const result = await fetch("/api"+"/"+id);
+  const result = await fetch("/api/books"+"/"+id);
   const data = await result.json();
   return data;
 }
 
 export async function deleteOneBook(id: number) {
-  const result = await fetch("/api" + "/" + id, { method: 'DELETE' });
+  const result = await fetch("/api/books" + "/" + id, { method: 'DELETE' });
   return result;
 }
 
 export async function addNewBook(data = {}) {
-  const response = await fetch("/api", {
+  const response = await fetch("/api/books", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function addNewBook(data = {}) {
 }
 
 export async function uppdateBook(id: number, data = {}) {
-  const response = await fetch("/api" + "/" + id, {
+  const response = await fetch("/api/books" + "/" + id, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -38,10 +38,8 @@ export async function uppdateBook(id: number, data = {}) {
 }
 
 
-const getUrl = "https://api.chucknorris.io/jokes/random";
-
 export async function getChuckFacts() {
-  const result = await fetch(getUrl);
+  const result = await fetch("/api/external");
   const data = await result.json();
   return data;
 }

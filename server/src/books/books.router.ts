@@ -33,34 +33,42 @@ booksRouter.get("/:id", async (req: Request, res: Response) => {
 
 // POST books
 
-booksRouter.post("/", validateBody, async (req: Request, res: Response) => {
-  try {
-    const book: BaseBook = req.body;
-    const newBook = await BookService.create(book);
-    res.status(201).json(newBook);
-  } catch (e) {
-    res.status(500).json({ error: { message: e } });
+booksRouter.post(
+  "/",
+  validateBody,
+  async (req: Request, res: Response) => {
+    try {
+      const book: BaseBook = req.body;
+      const newBook = await BookService.create(book);
+      res.status(201).json(newBook);
+    } catch (e) {
+      res.status(500).json({ error: { message: e } });
+    }
   }
-});
+);
 
 // PUT books/:id
 
-booksRouter.put("/:id", validateBody, async (req: Request, res: Response) => {
-  const id: number = parseInt(req.params.id, 10);
-  try {
-    const bookUpdate: Book = req.body;
-    const existingBook: Book = await BookService.find(id);
-    if (existingBook) {
-      const updatedBook = await BookService.update(id, bookUpdate);
-      return res.status(200).json(updatedBook);
+booksRouter.put(
+  "/:id",
+  validateBody,
+  async (req: Request, res: Response) => {
+    const id: number = parseInt(req.params.id, 10);
+    try {
+      const bookUpdate: Book = req.body;
+      const existingBook: Book = await BookService.find(id);
+      if (existingBook) {
+        const updatedBook = await BookService.update(id, bookUpdate);
+        return res.status(200).json(updatedBook);
+      }
+      return res.status(404).json("book not found");
+      //const newBook = await BookService.create(bookUpdate);  Adding these two lines instead of L57 gives the possibility to create a new book if id not found
+      //res.status(201).json(newBook);
+    } catch (e) {
+      res.status(500).json({ error: { message: e } });
     }
-    return res.status(404).json("book not found");
-    //const newBook = await BookService.create(bookUpdate);  Adding these two lines instead of L57 gives the possibility to create a new book if id not found
-    //res.status(201).json(newBook);
-  } catch (e) {
-    res.status(500).json({ error: { message: e } });
   }
-});
+);
 
 // DELETE books/:id
 
